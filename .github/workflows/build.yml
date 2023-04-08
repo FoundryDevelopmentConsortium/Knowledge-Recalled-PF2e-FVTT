@@ -1,8 +1,9 @@
 name: Sonar Cloud
 on:
+   workflow_dispatch:
    push:
       branches:
-         - main
+         - ci-analysis
    pull_request:
       types: [opened, synchronize, reopened]
 jobs:
