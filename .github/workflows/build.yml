@@ -15,6 +15,8 @@ jobs:
               fetch-depth: 0
               sonar.organization: "alecholloway"
               sonar.projectKey: "AlecHolloway_fvtt-knowledge-recalled-pf2e"
+              extraProperties: |
+                 sonar.verbose=true
          - name: SonarCloud Scan
            uses: SonarSource/sonarcloud-github-action@master
            env:
