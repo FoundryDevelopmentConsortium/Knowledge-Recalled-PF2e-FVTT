@@ -13,8 +13,8 @@ jobs:
          - uses: actions/checkout@v2
            with:
               fetch-depth: 0
-              sonar.organization: "alecholloway"
-              sonar.projectKey: "AlecHolloway_fvtt-knowledge-recalled-pf2e"
+              organization: "alecholloway"
+              projectKey: "AlecHolloway_fvtt-knowledge-recalled-pf2e"
               extraProperties: |
                  sonar.verbose=true
          - name: SonarCloud Scan
