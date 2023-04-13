@@ -1,4 +1,4 @@
-export default class KRActor extends foundry.abstract.TypeDataModel
+class KRActor extends foundry.abstract.TypeDataModel
 {
    static defineSchema()
    {
