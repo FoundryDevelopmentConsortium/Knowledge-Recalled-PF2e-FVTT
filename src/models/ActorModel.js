@@ -278,8 +278,4 @@ export default class NPCActor
       return this.traits;
    }
 
-
-  // getSpells()
-   // getSkills()
-   //getCreatureTraits()
 }

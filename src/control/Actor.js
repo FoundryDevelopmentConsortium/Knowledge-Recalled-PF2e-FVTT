@@ -2,30 +2,11 @@ import NPCActor from "../models/ActorModel.js";
 
 
 export let getEncounters;
-import NPCGlobalActor from "../models/ActorModel.js";
 export let Encounters;
 export let ActiveEncounters;
 export let getActiveEncounters;
 
 
-// getEncounters = async () =>
-// {
-//    Encounters = await ui.combat.combats;
-//    console.log(Encounters);
-// };
-//
-// getActiveEncounters = async () =>
-// {
-//    getEncounters.forEach((encounter) =>
-//    {
-//       if (encounter.isActive)
-//       {
-//          ActiveEncounters.push(encounter);
-//          console.log(ActiveEncounters);
-//          return ActiveEncounters;
-//       }
-//    });
-// };
 
 export async function getActorFromID(actorID) {
    return await game.actors.get(actorID);
@@ -62,7 +43,3 @@ function createNPCActorFactory(foundryNPC) {
    return new NPCActor(foundryNPC);
 }
 
-/*
-   export function getNPCGlobalActor() {
-
-}*/
