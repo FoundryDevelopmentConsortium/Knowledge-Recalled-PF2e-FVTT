@@ -95,9 +95,6 @@ async function updateNPCModelFlags(actor, updateData) {
          updatedFlags.willSave.value = actor.saves.will.dc.value;
          // Repopulate other values as needed...
 
-         // TODO: setFlag is changing the internal data of the actor so it is triggering the updateActor.
-         // TODO: Come up with some logic that will detect if the update has happened and skip that line.
-
          if (!isEqual(existingFlags, updatedFlags)) {
             await actor.setFlag("fvtt-knowledge-recalled-pf2e", "npcFlags", updatedFlags);
             console.log("Flags updated:", updatedFlags);

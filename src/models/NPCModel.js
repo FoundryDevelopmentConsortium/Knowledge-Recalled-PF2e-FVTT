@@ -288,49 +288,49 @@ export default class NPCModel
          console.error(`Invalid visibility property: ${propertyPath}`);
       }
    }
-   checkForChangesOnUpdate(actor)
-   {
-   const existingFlags = this.actor.getFlag("fvtt-knowledge-recalled-pf2e", "npcFlags");
-   if (existingFlags)
-   {
-      // Exclude visibility properties from the existingFlags object
-      const updatedFlags = Object.entries(existingFlags).reduce((flags, [key, value]) =>
-      {
-         if (!key.endsWith(".visibility"))
-         {
-            flags[key] = value;
-         }
-         return flags;
-      }, {});
-
-      // Repopulate the values that have path declarations
-      updatedFlags.baseCharacterInfo.name = actor.name;
-      updatedFlags.baseCharacterInfo.creatureType = actor.system.details.creatureType;
-      updatedFlags.baseCharacterInfo.alliance = actor.alliance;
-      updatedFlags.baseCharacterInfo.actorImg = actor.img;
-      updatedFlags.baseCharacterInfo.description = actor.description;
-      updatedFlags.rarity.value = actor.rarity;
-      updatedFlags.privateInfo.privateDescription = actor.system.details.privateNotes;
-      updatedFlags.privateInfo.CR = actor.level;
-      // need to do traits once this works
-
-      updatedFlags.armorClass.value = actor.attributes.ac.base;
-      updatedFlags.fortSave.value = actor.saves.fortitude.dc.value;
-      updatedFlags.refSave.value = actor.saves.reflex.dc.value;
-      updatedFlags.willSave.value = actor.saves.will.dc.value;
-      // Repopulate other values as needed...
-
-      this.flags = updatedFlags;
-      if (this.actor.type === "npc")
-      {
-         this.actor.setFlag("fvtt-knowledge-recalled-pf2e", "npcFlags", this.flags)
-         .then(() => this.processValues())
-         .catch((error) => console.error("Failed to set flags:", error));
-      }
-   }
-      else
-      {
-         this.initializeFlags();
-      }
-   }
+   // checkForChangesOnUpdate(actor)
+   // {
+   // const existingFlags = this.actor.getFlag("fvtt-knowledge-recalled-pf2e", "npcFlags");
+   // if (existingFlags)
+   // {
+   //    // Exclude visibility properties from the existingFlags object
+   //    const updatedFlags = Object.entries(existingFlags).reduce((flags, [key, value]) =>
+   //    {
+   //       if (!key.endsWith(".visibility"))
+   //       {
+   //          flags[key] = value;
+   //       }
+   //       return flags;
+   //    }, {});
+   //
+   //    // Repopulate the values that have path declarations
+   //    updatedFlags.baseCharacterInfo.name = actor.name;
+   //    updatedFlags.baseCharacterInfo.creatureType = actor.system.details.creatureType;
+   //    updatedFlags.baseCharacterInfo.alliance = actor.alliance;
+   //    updatedFlags.baseCharacterInfo.actorImg = actor.img;
+   //    updatedFlags.baseCharacterInfo.description = actor.description;
+   //    updatedFlags.rarity.value = actor.rarity;
+   //    updatedFlags.privateInfo.privateDescription = actor.system.details.privateNotes;
+   //    updatedFlags.privateInfo.CR = actor.level;
+   //    // need to do traits once this works
+   //
+   //    updatedFlags.armorClass.value = actor.attributes.ac.base;
+   //    updatedFlags.fortSave.value = actor.saves.fortitude.dc.value;
+   //    updatedFlags.refSave.value = actor.saves.reflex.dc.value;
+   //    updatedFlags.willSave.value = actor.saves.will.dc.value;
+   //    // Repopulate other values as needed...
+   //
+   //    this.flags = updatedFlags;
+   //    if (this.actor.type === "npc")
+   //    {
+   //       this.actor.setFlag("fvtt-knowledge-recalled-pf2e", "npcFlags", this.flags)
+   //       .then(() => this.processValues())
+   //       .catch((error) => console.error("Failed to set flags:", error));
+   //    }
+   // }
+   //    else
+   //    {
+   //       this.initializeFlags();
+   //    }
+   // }
 }
