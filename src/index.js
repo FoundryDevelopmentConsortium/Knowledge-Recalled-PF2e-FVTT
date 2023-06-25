@@ -43,10 +43,11 @@ Hooks.on('createActor', (actor, options, userId) =>
    // Check if the actor is an NPC
    if (actor.type === 'npc')
    {
+      console.log('begin initNPCModel');
 
       initNPCModel(actor).then((r) => console.log(r));
 
-
+      console.log('end initNPCModel');
    }
 });
 Hooks.on("updateActor", async (actor, updateData) => {
