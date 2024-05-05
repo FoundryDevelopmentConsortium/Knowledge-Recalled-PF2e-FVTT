@@ -1,41 +1,38 @@
-import { getSetting } from "../control/utilities";
-
 let instance;
 
-// /**
-//  * @enum {string}
-//  */
-// const logLevelStrings = {
-//    INFO: "INFO",
-//    ERROR: "ERORR",
-//    DEBUG: "DEBUG"
-// };
+/**
+ * @enum {string}
+ */
+const logLevelStrings = {
+   INFO: "INFO",
+   ERROR: "ERROR",
+   DEBUG: "DEBUG"
+};
 
 /**
- * @param {string} level
+ * @param {string} level - Takes INFO, ERROR, or DEBUG as arguments to set the logging level.
  *
- * @returns {logLevelStrings}
+ * @returns {logLevelStrings} - returns a log level validated to be accepted within the class.
  */
-// function validateLogLevel(level) {
-//    if (Object.values(logLevelStrings).includes(level)) {
-//       return level;
-//    }
-//    throw new Error(`Invalid log level: ${level}`);
-// }
+function validateLogLevel(level) {
+   if (Object.values(logLevelStrings).includes(level)) {
+      return level;
+   }
+   throw new Error(`Invalid log level: ${level}`);
+}
 
 class Debugger {
    /**
-    * @class
+    * @param logLevel
     *
-    * @param {import("../constants/settings").SettingsValue} logLevel - Accepts choices provided in Debug Setting "INFO"
-    * | "ERROR" | "DEBUG"
+    * @class
     */
-   constructor(logLevel) {
+   constructor() {
       if (instance) {
          throw new Error("Only one debugger class is allowed");
       }
       instance = this;
-      this.logLevel = logLevel;
+      this.logLevel;
       this.moduleInfo = "Knowledge Recalled:";
       this.sessionLog = [];
       this.count = {
@@ -47,6 +44,12 @@ class Debugger {
       };
    }
 
+   setLogLevel(logLevel) {
+      const validatedLogLevel = validateLogLevel(logLevel);
+      this.logLevel = validatedLogLevel;
+      console.log(this.logLevel);
+   }
+
    /**
     * @function
     *
@@ -55,14 +58,17 @@ class Debugger {
     * @returns {void}
     */
    info(...params) {
-      const logInfo = `[INFO] ${this.getTime()} | ${this.moduleInfo}`;
-      const logObjects = params.filter((param) => typeof param === 'object' || Array.isArray(param));
-      const logEntry = [
-         logInfo, ...logObjects
-      ];
-      this.sessionLog.push(logEntry);
-      this.count.info++;
-      console.info(`[INFO] ${this.getTime()} | ${this.moduleInfo}`, ...params, this.count, this.sessionLog);
+      if (this.logLevel === "INFO" || this.logLevel === "DEBUG" || this.logLevel === undefined) {
+         const logInfo = `[INFO] ${this.getTime()} | ${this.moduleInfo}`;
+         const logObjects = params.filter((param) => typeof param === 'object' || Array.isArray(param));
+         const logEntry = [
+            logInfo, ...logObjects
+         ];
+         this.sessionLog.push(logEntry);
+         this.count.info++;
+         console.info(`[INFO] ${this.getTime()} | ${this.moduleInfo}`, ...params, this.count, this.sessionLog);
+      }
+      return;
    }
 
    /**
@@ -91,14 +97,16 @@ class Debugger {
     * @returns {void}
     */
    log(...params) {
-      const logInfo = `[LOG] ${this.getTime()} | ${this.moduleInfo}`;
-      const logObjects = params.filter((param) => typeof param === 'object' || Array.isArray(param));
-      const logEntry = [
-         logInfo, ...logObjects
-      ];
-      this.sessionLog.push(logEntry);
-      this.count.log++;
-      console.log(`[LOG] ${this.getTime()} | ${this.moduleInfo}`, ...params, this.count, this.sessionLog);
+      if (this.logLevel === "INFO" || this.logLevel === "DEBUG" || this.logLevel === undefined) {
+         const logInfo = `[LOG] ${this.getTime()} | ${this.moduleInfo}`;
+         const logObjects = params.filter((param) => typeof param === 'object' || Array.isArray(param));
+         const logEntry = [
+            logInfo, ...logObjects
+         ];
+         this.sessionLog.push(logEntry);
+         this.count.log++;
+         console.log(`[LOG] ${this.getTime()} | ${this.moduleInfo}`, ...params, this.count, this.sessionLog);
+      }
    }
 
    /**
@@ -156,14 +164,16 @@ class Debugger {
     * @returns {void}
     */
    debug(...params) {
-      const logInfo = `[DEBUG] ${this.getTime()} | ${this.moduleInfo}`;
-      const logObjects = params.filter((param) => typeof param === 'object' || Array.isArray(param));
-      const logEntry = [
-         logInfo, ...logObjects
-      ];
-      this.sessionLog.push(logEntry);
-      this.count.debug++;
-      console.debug(`[DEBUG] ${this.getTime()} | ${this.moduleInfo}`, ...params, this.count, this.sessionLog);
+      if (this.logLevel === undefined || this.logLevel === "DEBUG") {
+         const logInfo = `[DEBUG] ${this.getTime()} | ${this.moduleInfo}`;
+         const logObjects = params.filter((param) => typeof param === 'object' || Array.isArray(param));
+         const logEntry = [
+            logInfo, ...logObjects
+         ];
+         this.sessionLog.push(logEntry);
+         this.count.debug++;
+         console.debug(`[DEBUG] ${this.getTime()} | ${this.moduleInfo}`, ...params, this.count, this.sessionLog);
+      }
    }
 
    /**
@@ -183,7 +193,6 @@ class Debugger {
 
 
 }
-
 // const logLevelSettingParam = getSetting("debug");
 // console.log(logLevelSettingParam);
-export const log = Object.freeze(new Debugger());
+export const log = new Debugger();
